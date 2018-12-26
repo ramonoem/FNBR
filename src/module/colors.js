@@ -1,0 +1,20 @@
+COLORS = {
+    BACKGROUND: '#033333',
+    SUB_HEADER_TITTLE : '#fff',
+    RED : '#D7164C',
+    BLUE: '#0398FD',
+    MAIN: '#2056FF',
+    RED_ORANGE : '#F15C53',
+    TEXT_DARK: '#333',
+    DARK: '#333',
+    HEADER: '#033333',
+    HEADERBACKGROUD:'#582D79',
+    TITILETEXT:'#666666',
+    SUBTEXT:'#817E7E',
+    COLORTEXT:"#606060",
+    MAINCOLOR:'#DC958E',
+    TEXT:'#FFF'
+    
+}
+
+module.exports = COLORS;
