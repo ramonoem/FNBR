@@ -29,6 +29,7 @@ class ChanllengeScreen extends Component {
         />
         <HeaderScreen
           titile={'FNBR NEWS'}
+          nav={this.props.navigation}
         />
          {loading ?
           <Loading />

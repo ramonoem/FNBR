@@ -15,7 +15,6 @@ class SoundBoards {
                 this.loading = false 
                 this.refreshing = false
                 this.listSoundBoards = responseList.data;
-                console.log("listSoundBoards", responseList)
             })
             .catch(function (error) {
                 console.log(error);

@@ -9,10 +9,7 @@ import { DrawerActions } from 'react-navigation-drawer';
 
 class HeaderScreen extends Component {
     _onClick = () => {
-        console.log("nav", this.props)
         const { nav } = this.props
-        // nav.openDrawer()
-        // this.props.nav.dispatch(DrawerActions.openDrawer());
         this.props.nav.openDrawer()
     }
     render() {

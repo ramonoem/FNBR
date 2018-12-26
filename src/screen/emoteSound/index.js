@@ -5,6 +5,8 @@ import { DIMENSION, APPEARANCES, COLORS, FONTFAMILY, ISEMPTY } from '../../modul
 import GoBackHeader from '../../component/header/goBackHeader';
 import { translate } from "react-i18next";
 import Loading from '../../component/loading/loading';
+import ImagePuase from '../../assets/images/circled-pause.png';
+import ImagePlay from '../../assets/images/images.png';
 import { observer, inject } from 'mobx-react';
 var Sound = require('react-native-sound');
 var song = null;
@@ -20,13 +22,23 @@ class EmoteSoundScreen extends Component {
             refreshing: false,
             song: null,
             pause: false,
-            loading: false
+            loading: false,
+            id: ''
         }
     }
+ 
+   
     componentDidMount() {
-        this.props.soundBoards.fetchDataSoundBoards()
-        console.log("this.state.pause" , this.state.pause)
+        this.props.soundBoards.fetchDataSoundBoards();
+        // const data  = this.props.soundBoards.listSoundBoards
+        // console.log("data", data)
+        // const { fileUrl: fileUrl, imageUrl: imageUrl, rarity: }
+
     };
+
+
+
+
     onPressButtonPlay(value) {
         const url = value;
         console.log("value:", value)
@@ -46,7 +58,6 @@ class EmoteSoundScreen extends Component {
     }
 
     onPressButtonPause() {
-        console.log("pause  ")
          sound = null
         if (this.sound != null) {
             this.sound.stop();
@@ -81,17 +92,18 @@ class EmoteSoundScreen extends Component {
                     // onEndReached={() =>this.fetchDataAdvertisements()}
                     showsVerticalScrollIndicator={false}
                     data={this.props.soundBoards.listSoundBoards}
+                    extraData={this.state}
                     keyExtractor={(item, index) => index.toString()}
                     style={[APPEARANCES.SHADOW, {
                         flex: 1,
                         paddingLeft: 7,
-
                     }]}
                     renderItem={({ item, index }) => {
                         if (item.rarity === "legendary") {
+                            console.log(item)
                             return (
                                 <TouchableOpacity
-                                    onPress={() => this.onPressButtonPlay(item.fileUrl)} 
+                                    onPress={() => this.onPressButtonPlay(item.fileUrl, index)} 
                                     style={[{
                                         width: DIMENSION(96.5),
                                         height: DIMENSION(25.6),
@@ -196,7 +208,10 @@ class EmoteSoundScreen extends Component {
 
                                         <Image
                                             // resizeMode={'stretch'}
-                                            source={require('../../assets/images/images.png')}
+                                            // source={require('../../assets/images/images.png')}
+                                            source={
+                                                this.state.pause === false ?  ImagePlay : ImagePuase
+                                            }
                                             style={{ color: 'gray', height: DIMENSION(15), width: DIMENSION(15), }}
                                         />
 
