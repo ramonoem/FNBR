@@ -146,6 +146,7 @@ configurations.all {
 }
 
 dependencies {
+    compile project(':react-native-webview')
     compile project(':react-native-sound')
     compile project(':react-native-music-control')
     compile project(':react-native-gesture-handler')

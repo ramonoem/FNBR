@@ -23,6 +23,7 @@ class HomeScreen extends Component {
     this.props.news.fetchDataNews()
   };
   render() {
+    const {nav}= this.props
     const { listNews, refreshing, loading } = this.props.news
     return (
       <View style={styles.container}>

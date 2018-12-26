@@ -2,17 +2,17 @@ import React from 'react'
 import  { Dimensions } from 'react-native';
 import { createDrawerNavigator, createAppContainer } from 'react-navigation';
 import FortniteTweetScreen from '../screen/fortniteTweet';
+import Fortnite3DModelScreen from '../screen/fortnite3DModel';
+import DetailFortnite3DModelScreen from '../screen/fortnite3DModel/detail'
 import ProTipsVideoScreen from '../screen/proTipsVideo';
 import DrawerComponent from './drawerComponent';
 import AppRoute from './mainRoute';
 import DetailFortniteTweet from '../screen/fortniteTweet/detail';
-import Fortnite3DModelScreen from '../screen/fortnite3DModel/';
 import EmoteSoundScreen from '../screen/emoteSound/index';
 import ShareThisApp from '../screen/shareThisApp';
 import SubscribeUs from '../screen/subscribeUs';
 import HelpUsTranslate from '../screen/helpUsTranslate';
 import FAQs from '../screen/FAQs';
-
 
 
 
@@ -24,6 +24,12 @@ const DrawerRoute = createDrawerNavigator({
     AppRoute: {
         screen: AppRoute
     },
+    Fortnite3DModelScreen: {
+        screen: Fortnite3DModelScreen,
+    },
+    DetailFortnite3DModelScreen:{
+        screen: DetailFortnite3DModelScreen
+    },
     FortniteTweetScreen: {
         screen: FortniteTweetScreen
     },
@@ -32,9 +38,6 @@ const DrawerRoute = createDrawerNavigator({
     },
     ProTipsVideoScreen: {
         screen: ProTipsVideoScreen
-    },
-    Fortnite3DModelScreen:{
-        screen: Fortnite3DModelScreen
     },
     EmoteSoundScreen:{
         screen: EmoteSoundScreen

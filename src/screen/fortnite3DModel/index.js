@@ -6,6 +6,7 @@ import GoBackHeader from '../../component/header/goBackHeader';
 import { translate } from "react-i18next";
 import Loading from '../../component/loading/loading';
 import { observer, inject } from 'mobx-react';
+import { WebView } from "react-native-webview";
 
 @inject('fortnite3DModels')
 @observer
@@ -19,10 +20,19 @@ class Fortnite3DModelScreen extends Component {
     componentDidMount() {
         this.props.fortnite3DModels.fetchDataFortnite3DModels()
     };
-
+ 
+    _onDetail = (item) => {
+        this.props.navigation.navigate({
+            routeName: "DetailFortnite3DModelScreen",
+            key: "DetailFortnite3DModelScreen",
+            params: {
+                data: item
+            }
+        });
+    }
     render() {
         const { listFortnite3DModels, refreshing, loading } = this.props.fortnite3DModels
-        console.log("listFortnite3DModels", listFortnite3DModels)
+        // console.log("listFortnite3DModels", listFortnite3DModels)
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -54,9 +64,7 @@ class Fortnite3DModelScreen extends Component {
                         if (item.rarityType === "legendary") {
                             return (
                                 <TouchableOpacity
-                                    onPress={() => {
-                                        Linking.openURL(item.detailLink)
-                                    }}
+                                onPress={() => this._onDetail(item)}
                                     style={[{
                                         width: DIMENSION(31),
                                         height: DIMENSION(61),
