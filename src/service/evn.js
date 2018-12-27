@@ -6,5 +6,6 @@ export default EVN = {
     baseUrlChallenge: "/challenge.json",
     baseUrlFortnite3DModel: "/3dmodel/skin.json",
     baseUrlSoundBoard: "/soundboard.json",
+    baseUrlProTipSVideo: "/pro_tips.json",
 
 }

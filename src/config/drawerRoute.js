@@ -2,8 +2,7 @@ import React from 'react'
 import  { Dimensions } from 'react-native';
 import { createDrawerNavigator, createAppContainer } from 'react-navigation';
 import FortniteTweetScreen from '../screen/fortniteTweet';
-import Fortnite3DModelScreen from '../screen/fortnite3DModel';
-import DetailFortnite3DModelScreen from '../screen/fortnite3DModel/detail'
+import Fortnite3DModelRoute from './fortnite3DModelRoute';
 import ProTipsVideoScreen from '../screen/proTipsVideo';
 import DrawerComponent from './drawerComponent';
 import AppRoute from './mainRoute';
@@ -24,11 +23,8 @@ const DrawerRoute = createDrawerNavigator({
     AppRoute: {
         screen: AppRoute
     },
-    Fortnite3DModelScreen: {
-        screen: Fortnite3DModelScreen,
-    },
-    DetailFortnite3DModelScreen:{
-        screen: DetailFortnite3DModelScreen
+    Fortnite3DModelRoute: {
+        screen: Fortnite3DModelRoute,
     },
     FortniteTweetScreen: {
         screen: FortniteTweetScreen

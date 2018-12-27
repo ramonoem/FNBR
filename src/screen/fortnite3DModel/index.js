@@ -1,8 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
-import { Image, StyleSheet, StatusBar, Platform, Linking,TouchableOpacity, Text, FlatList, View } from 'react-native';
+import { Image, StyleSheet, StatusBar, Platform, Linking, TouchableOpacity, SafeAreaView, Text, FlatList, View } from 'react-native';
 import { DIMENSION, APPEARANCES, COLORS, FONTFAMILY } from '../../module';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import GoBackHeader from '../../component/header/goBackHeader';
+import isIphoneX from '../../module/platform';
 import { translate } from "react-i18next";
 import Loading from '../../component/loading/loading';
 import { observer, inject } from 'mobx-react';
@@ -17,10 +20,17 @@ class Fortnite3DModelScreen extends Component {
             refreshing: false
         }
     }
+    componentWillMount() {
+
+    }
     componentDidMount() {
         this.props.fortnite3DModels.fetchDataFortnite3DModels()
     };
- 
+    componentDidUpdate = (prevProps, prevState) => {
+        console.log("prevProps", prevProps)
+    }
+
+
     _onDetail = (item) => {
         this.props.navigation.navigate({
             routeName: "DetailFortnite3DModelScreen",
@@ -39,10 +49,26 @@ class Fortnite3DModelScreen extends Component {
                     barStyle={Platform.OS === 'android' ? "light-content" : "light-content"}
                     backgroundColor={Platform.OS === 'android' ? "#000" : "#6a51ae"}
                 />
-                <GoBackHeader
-                    titile={'FNBR NEWS'}
-                    nav={this.props.navigation}
-                />
+                <View style={styles.headerContainer}>
+                    <SafeAreaView style={styles.header}>
+                        <View style={styles.rowHeader}>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('AppRoute')}
+                                style={{
+                                    marginLeft: DIMENSION(2),
+                                    marginRight: DIMENSION(5)
+                                }}
+                            >
+                                <AntDesign style={styles.icon}
+                                    name="arrowleft"
+                                />
+                            </TouchableOpacity>
+                            <Text style={[styles.headerTittle, {
+                            }]}>{this.props.t("FNBR NEWS")}</Text>
+                            <MaterialIcons style={styles.icon} name={this.props.exicon} />
+                        </View>
+                    </SafeAreaView>
+                </View>
                 {loading ?
                     <Loading />
                     : <View></View>
@@ -64,7 +90,7 @@ class Fortnite3DModelScreen extends Component {
                         if (item.rarityType === "legendary") {
                             return (
                                 <TouchableOpacity
-                                onPress={() => this._onDetail(item)}
+                                    onPress={() => this._onDetail(item)}
                                     style={[{
                                         width: DIMENSION(31),
                                         height: DIMENSION(61),
@@ -119,9 +145,8 @@ class Fortnite3DModelScreen extends Component {
                         if (item.rarityType === "rare") {
                             return (
                                 <TouchableOpacity
-                                    onPress={() => {
-                                        Linking.openURL(item.detailLink)
-                                    }} style={[, , {
+                                    onPress={() => this._onDetail(item)}
+                                    style={[, , {
                                         width: DIMENSION(31),
                                         height: DIMENSION(61),
                                         padding: 2,
@@ -179,9 +204,8 @@ class Fortnite3DModelScreen extends Component {
                             // this.setState({rare: '#582D79'})
                             return (
                                 <TouchableOpacity
-                                    onPress={() => {
-                                        Linking.openURL(item.detailLink)
-                                    }} style={[, , {
+                                    onPress={() => this._onDetail(item)}
+                                    style={[, , {
                                         width: DIMENSION(31),
                                         height: DIMENSION(61),
                                         padding: 2,
@@ -236,9 +260,8 @@ class Fortnite3DModelScreen extends Component {
                             // this.setState({rare: '#336F23'})
                             return (
                                 <TouchableOpacity
-                                    onPress={() => {
-                                        Linking.openURL(item.detailLink)
-                                    }} style={[, , {
+                                    onPress={() => this._onDetail(item)}
+                                    style={[, , {
                                         width: DIMENSION(31),
                                         height: DIMENSION(61),
                                         padding: 2,
@@ -304,6 +327,46 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFF',
+    },
+    headerTittle: {
+        color: COLORS.SUB_HEADER_TITTLE,
+        fontSize: FONTFAMILY.mainFontSize,
+        fontWeight: 'bold',
+        // backgroundColor: "red",
+    },
+    rowHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // justifyContent: 'space-between',
+        paddingRight: DIMENSION(10),
+        paddingLeft: DIMENSION(1),
+    },
+    icon: {
+        fontSize: 30,
+        color: "#FFF"
+    },
+    imageLogo: {
+        width: DIMENSION(16),
+        height: DIMENSION(16),
+        shadowOffset: { width: 1, height: 2, },
+        shadowColor: '#000',
+        shadowOpacity: 0.5,
+    },
+    headerContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    header: {
+        backgroundColor: COLORS.HEADERBACKGROUD,
+        justifyContent: 'center',
+        flexDirection: 'column',
+        width: DIMENSION(100),
+        height: isIphoneX ? DIMENSION(29) : DIMENSION(18)
+    },
+    imageIconRecruitment: {
+        width: DIMENSION(10),
+        height: DIMENSION(6),
     },
 });
 

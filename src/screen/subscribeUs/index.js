@@ -30,7 +30,7 @@ class SubscribeUs extends Component {
                     backgroundColor={Platform.OS === 'android' ? "#000" : "#6a51ae"}
                 />
                 <GoBackHeader
-                    titile={'FNBR NEWS'}
+                    titile={this.props.t('FNBR NEWS')}
                     nav={this.props.navigation}
                 />
                 {loading ?

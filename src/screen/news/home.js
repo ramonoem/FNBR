@@ -7,7 +7,7 @@ import { translate } from "react-i18next";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import ChangeLanguageComponent from '../../i18n/changeLanguage'
 import { DrawerActions } from 'react-navigation-drawer';
-import Loading from '../../component/loading/loading'
+import Loading from '../../component/loading/loading';
 import { observer, inject } from 'mobx-react';
 
 @inject('news')
@@ -32,7 +32,7 @@ class HomeScreen extends Component {
           backgroundColor={Platform.OS === 'android' ? "#000" : "#6a51ae"}
         />
         <HeaderScreen
-          titile={'FNBR NEWS'}
+          titile={this.props.t('FNBR NEWS')}
           nav={this.props.navigation}
         />
         {loading ?
@@ -62,7 +62,7 @@ class HomeScreen extends Component {
 
                 style={[, APPEARANCES.SHADOW, {
                   marginHorizontal: DIMENSION(3),
-                  width: DIMENSION(90),
+                  width: DIMENSION(94),
                   marginVertical: DIMENSION(0.5),
                   marginTop: 15,
 

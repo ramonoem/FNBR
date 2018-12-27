@@ -4,6 +4,7 @@ import UpComings from "./model/upComing";
 import Challenges from "./model/challenge";
 import Fortnite3DModels from "./model/fortnite3DModel";
 import SoundBoards from "./model/soundBoard";
+import ProTipsVideos from "./model/proTipsVideo";
 
 export default store = {
     news: new News,
@@ -11,5 +12,6 @@ export default store = {
     upComings: new UpComings,
     challenges: new Challenges,
     fortnite3DModels: new Fortnite3DModels,
-    soundBoards: new SoundBoards
+    soundBoards: new SoundBoards,
+    proTipsVideos: new ProTipsVideos
 }

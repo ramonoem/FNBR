@@ -74,7 +74,7 @@ class EmoteSoundScreen extends Component {
                     backgroundColor={Platform.OS === 'android' ? "#000" : "#6a51ae"}
                 />
                 <GoBackHeader
-                    titile={'Emote Sound'}
+                    titile={this.props.t('Emote Sound')}
                     nav={this.props.navigation}
                 />
                 {loading ?

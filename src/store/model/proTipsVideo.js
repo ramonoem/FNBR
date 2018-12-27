@@ -3,19 +3,19 @@ import axios from 'axios';
 // import {  getData } from '../../service/dataServices';
 import evn from '../../service/evn';
 
-class News {
+class ProTipsVideos {
     @observable loading = false;
     @observable refreshing = false;
-    @observable listNews = [];
+    @observable listProTipsVideos = [];
 
-    @action fetchDataNews(){
+    @action fetchDataProTipsVideos(){
             this.loading = true 
             this.refreshing = true
-            axios.get(evn.baseUrl + evn.baseUrlNews). 
+            axios.get(evn.baseUrl + evn.baseUrlProTipSVideo). 
                 then((responseList)=>{
                 this.loading = false 
                 this.refreshing = false
-                this.listNews = responseList.data;
+                this.listProTipsVideos = responseList.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -23,4 +23,4 @@ class News {
        
     }
 }
-export default News;
+export default ProTipsVideos;
