@@ -87,9 +87,7 @@ class DetailFortnite3DModelScreen extends Component {
                     </View>
                 </SafeAreaView>
             </View>
-                {/* {
-                    this.state.loading == true ? <Loading /> :null
-                } */}
+                
                 {this.state.data?
                     <WebView
                     allowFileAccess={true}

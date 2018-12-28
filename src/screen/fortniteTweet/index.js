@@ -26,12 +26,18 @@ class FortniteTweetScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      refreshing: false,
-      data: null,
-      loading: false
+        refreshing: false,
+        data:  null,
+        loading: false
     }
-  }
+}
+componentDidMount() {
+  this.setState({ data: 'https://twitter.com/FortniteGame?ref_src=twsrc%5Etfw%E2%80%9C%3ETweets'})
+}
 
+componentWillUnmount = () => {
+  this.setState({ data: 'https://twitter.com/FortniteGame?ref_src=twsrc%5Etfw%E2%80%9C%3ETweets'})
+};
   ActivityIndicatorLoadingView() {
     return (
       <ActivityIndicator
@@ -43,6 +49,20 @@ class FortniteTweetScreen extends Component {
   }
   render() {
     const html = '<a class=“twitter-timeline” href=“https://twitter.com/FortniteGame?ref_src=twsrc%5Etfw“>Tweets by FortniteGame</a> <script async src=“https://platform.twitter.com/widgets.js” charset=“utf-8"></script>'
+    const Constants = {
+      javascript: {
+          injection: `
+              Array.from(document.getElementsByTagName('input')).forEach((item) => {
+                  if(item.type == "search") {
+                      item.value = "look at me, I'm injecting";
+                  }
+              })
+          `
+      }
+  }
+    console.log(`v:1`);
+    console.log(`html info: ${JSON.stringify(html)}`);
+    console.log(`javascript: ${Constants.javascript.injection}`);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -69,26 +89,21 @@ class FortniteTweetScreen extends Component {
             </View>
           </SafeAreaView>
         </View>
-        <WebView
-          allowFileAccess={true}
-          scalesPageToFit={true}
-          renderError={(e) => {
-            if (e === 'WebKitErrorDomain') {
-              return
-            }
-          }}
-          onNavigationStateChange={(navEvent)=> console.log(navEvent.jsEvaluationValue)}
-          bounces={false}
-          allowUniversalAccessFromFileURLs={true}
-          originWhitelist={['*']}
-          source={{ html: html }}
-          onLoadProgress={e => console.log(e.nativeEvent.progress)}
-          style={styles.WebViewStyle}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          renderLoading={this.ActivityIndicatorLoadingView}
-          startInLoadingState={true}
-        />
+        {this.state.data?
+                    <WebView
+                    allowFileAccess={true}
+                    scalesPageToFit={true}
+                    originWhitelist={['*']}
+                    source={{ uri: this.state.data }}
+                    onLoadProgress={e => console.log(e.nativeEvent.progress)}
+                    style={styles.WebViewStyle} 
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    renderLoading={this.ActivityIndicatorLoadingView} 
+                    startInLoadingState={true}  
+                />
+                :null
+                }
       </View>
     );
   }

@@ -1,13 +1,10 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Platform, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Image, Modal, TextInput, Alert, ScrollView } from 'react-native';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { View, Share, StyleSheet, TouchableOpacity, Image, Modal, TextInput, Alert, ScrollView } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base'
+import ChangeLanguageComponent from '../i18n/changeLanguage'
 import isIphoneX from '../module/platform';
-import Foundation from "react-native-vector-icons/Foundation";
 import { DIMENSION, COLORS } from '../module';
-// import ChangeLanguageComponent from '../i18n/changeLanguage';
 import { translate } from "react-i18next";
 
 const activeColor = COLORS.HEADERTEXT
@@ -16,7 +13,7 @@ class DrawerComponent extends Component {
     constructor(prop) {
         super(prop);
         this.state = {
-
+            modalVisible: false,
         }
     }
     onChanged(text) {
@@ -72,6 +69,12 @@ class DrawerComponent extends Component {
                 return (this.props.navigation.navigate('FAQs'))
         }
     };
+    onClickShare() {
+        Share.share({
+            url: 'http://youtube.com',
+        })
+    }
+
     render() {
         const { selectedMenu } = this.state;
         return (
@@ -89,6 +92,7 @@ class DrawerComponent extends Component {
                         // fontFamily: this.props.i18n.language == 'kh' ? FONTFAMILY.mainFontKh : FONTFAMILY.mainFontEn
                     }]}>{this.props.t("Version 2.6")}</Text>
                 </TouchableOpacity>
+                <ScrollView>
                 <View style={styles.bodyMenu}>
                     <TouchableOpacity
                         onPress={() => this.onSelecteMenu(1)}
@@ -153,7 +157,7 @@ class DrawerComponent extends Component {
                 </View>
                 <View style={styles.bodyMenu2}>
                     <TouchableOpacity
-                        onPress={() => this.onSelecteMenu(5)}
+                        onPress={() => this.onClickShare()}
                         style={styles.touchableOpacityViewBody}
                     >
                         <View style={[styles.buttomMenu]}>
@@ -194,7 +198,7 @@ class DrawerComponent extends Component {
                             <Text style={[styles.textMenu, {
                                 // fontFamily: this.props.i18n.language == 'kh' ? FONTFAMILY.mainFontKh : FONTFAMILY.mainFontEn,
                                 fontSize: FONTFAMILY.titleText
-                            }]}>{this.props.t("Help Us translate")}</Text>
+                            }]}>{this.props.t("Help us translate")}</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -212,7 +216,54 @@ class DrawerComponent extends Component {
                             }]}>{this.props.t("FAQs")}</Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            // this.setModalVisible(!this.state.modalVisible);
+                            this.props.navigation.navigate("ChangeLanguageComponent")
+                        }}
+                        style={styles.touchableOpacityViewBody}
+                    >
+                        <View style={[styles.buttomMenu]}>
+                            
+                            <Image
+                                source={require('../../src/assets/images/lang.png')}
+                                style={[styles.imageIcon, this.state.selectedMenu === 8 ? { tintColor: activeColor } : { tintColor: inActiveColor }]}
+                            />
+                            <Text style={[styles.textMenu, {
+                                // fontFamily: this.props.i18n.language == 'kh' ? FONTFAMILY.mainFontKh : FONTFAMILY.mainFontEn,
+                                fontSize: FONTFAMILY.titleText
+                            }]}>{this.props.t("Change Language")}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
+                <Modal
+                    style={{ flex: 1, }}
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        this.setModalVisible(!this.state.modalVisible);
+                    }}
+                >
+                    <Container>
+                        <Header />
+                        <Content>
+                            <Card>
+                                <CardItem>
+                                    <Icon active name="logo-googleplus" />
+                                    <Text>Google Plus</Text>
+                                    <Right>
+                                        <Icon name="arrow-forward" />
+                                    </Right>
+                                </CardItem>
+                            <ChangeLanguageComponent
+                                nav = {this.props.navigation}
+                            /> 
+                            </Card>
+                        </Content>
+                    </Container>
+                </Modal>
+                </ScrollView>
             </View>
 
         );
@@ -222,8 +273,8 @@ class DrawerComponent extends Component {
 // define your styles
 const styles = StyleSheet.create({
     viewStyleBody: { marginTop: 5, marginRight: DIMENSION(20) },
-    touchableOpacityViewBody: { 
-        flexDirection: 'row', 
+    touchableOpacityViewBody: {
+        flexDirection: 'row',
         alignItems: 'center',
         padding: 6.5,
         paddingTop: 20
@@ -295,16 +346,16 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.TEXT,
         paddingLeft: DIMENSION(3),
         width: DIMENSION(100),
-        height: DIMENSION(60),
+        // height: DIMENSION(60),
         borderBottomWidth: 1,
         borderTopWidth: 1,
         borderColor: '#E0E0E0'
     },
-    bodyMenu2:{
+    bodyMenu2: {
         backgroundColor: COLORS.TEXT,
         paddingLeft: DIMENSION(3),
         width: DIMENSION(100),
-        height: DIMENSION(60),
+        // height: DIMENSION(60),
         // borderBottomWidth: 1,
         borderTopWidth: 1,
         borderColor: '#E0E0E0'

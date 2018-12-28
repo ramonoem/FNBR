@@ -4,6 +4,7 @@ import {
     createAppContainer,
     createBottomTabNavigator
 } from 'react-navigation';
+// import { translate } from "react-i18next";
 import HomeScreen from '../screen/news/home';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
@@ -14,15 +15,14 @@ import ChanllengeScreen from '../screen/challenge/';
 // import DrawerRouting from '../config/drawerRoute';
 // import DrawerComponent from './drawerComponent/'
 
-
-
 const color = "#373737";
 const activeColor = "#582D79";
+const title = 'News'
 const RootStack = createBottomTabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            title: "News",
+            title: 'News',
             tabBarIcon: ({ focused }) =>
                 focused ? (
                     <FontAwesome5
@@ -146,5 +146,7 @@ const RootStack = createBottomTabNavigator({
     });
 
 const AppRoute = createAppContainer(RootStack);
-
+    console.log("porps", this.props)
+    const props = this.props
 export default AppRoute ;
+// translate("common")(

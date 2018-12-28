@@ -33,7 +33,9 @@ export default class App extends Component {
     return (
       <Provider {...store}>
         <I18nextProvider i18n={i18n}>
-          <AppStacking />
+          <AppStacking  
+         nav={this.props.nav}
+          />
         </I18nextProvider>
       </Provider>
     );

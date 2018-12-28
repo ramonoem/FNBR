@@ -8,6 +8,9 @@ import {
 import i18n from "./index";
 import { translate } from "react-i18next";
 import { DIMENSION, } from '../module';
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
+import { Left, Button } from "native-base";
+import GoBackHeader from '../component/header/goBackHeader'
 
 class ChangeLanguageComponent extends Component {
 
@@ -23,50 +26,90 @@ class ChangeLanguageComponent extends Component {
 		AsyncStorage.setItem("@lang:code", val);
 		i18n.changeLanguage(val);
 	}
-	_onClick = () => {
+	_onClickGerman = () => {
 		const { nav } = this.props
-		// this.onSelectedLang("kh")
+		this.onSelectedLang("german")
+		// nav.navigate("Home")
+	}
+	_onClickEnglish = () => {
+		// const { nav } = this.props
+		this.onSelectedLang("en")
 		// nav.navigate("Home")
 	}
 	render() {
 		const { nav } = this.props
+		console.log('props:', this.props)
 		return (
-			<View style={{ height: 20 }}>
-				<View style={{ flexDirection: "row", left: 0, marginLeft: DIMENSION(0), width: DIMENSION(20) }}>
-					{
-						this.stat.activeFlag === this.props.i18n.language ?
-							<TouchableOpacity
-								style={{
-									// ?paddingLeft: 8,
-									// justifyContent: "center",
-									// alignItems: "center"
-								}}
-								onPress={() => this.onSelectedLang("kh")}
-							>
-								<Image
-									source={require("../assets/images/kh.png")}
-									style={{ width: 30, height: 21 }}
-								/>
-							</TouchableOpacity> 
-							:
-							<TouchableOpacity
-								style={{
-									// paddingLeft: 8,
-									// justifyContent: "center",
-									// alignItems: "center"
-								}}
-								onPress={() => this.onSelectedLang("en")}
-							>
-								<Image
-									source={require("../assets/images/en.png")}
-									style={{ width: 30, height: 21 }}
-								/>
-							</TouchableOpacity>
+			<Container>
+				<GoBackHeader
+					titile={this.props.t('Language')}
+					nav={this.props.navigation}
+				/>
+				<Content>
+					<Button
+						onPress={() => this.onSelectedLang("czech")}
+						full style={{
+							backgroundColor: '#FFF',
+							padding: DIMENSION(30),
+							justifyContent: 'center'
+						}}>
+						<Left>
+							<Text style={{
+								color: '#000',
+							}}>Czech</Text>
+						</Left>
+						<Right style={{}}>
 
-					}
-				</View>
-			</View>
+							<Image
+								source={require("../assets/images/czech.png")}
+								style={{ width: 30, height: 21 }}
+							/>
+						</Right>
+					</Button>
+					<Button
+						onPress={() => this.onSelectedLang("german")}
+						full style={{
+							backgroundColor: '#FFF',
+							padding: DIMENSION(30),
+						}}>
+						<Left>
+							<Text style={{
+								color: '#000'
+							}}>German</Text>
+						</Left>
+						<Right style={{}}>
+
+							<Image
+								source={require("../assets/images/german.png")}
+								style={{ width: 30, height: 21 }}
+							/>
+						</Right>
+					</Button>
+					<Button
+						onPress={() => this.onSelectedLang("en")}
+						full style={{
+							backgroundColor: '#FFF',
+							padding: DIMENSION(30),
+							justifyContent: 'center'
+						}}>
+						<Left>
+							<Text style={{
+								color: '#000',
+							}}>USA</Text>
+						</Left>
+						<Right style={{}}>
+
+							<Image
+								source={require("../assets/images/en.png")}
+								style={{ width: 30, height: 21 }}
+							/>
+						</Right>
+					</Button>
+
+				</Content>
+			</Container>
 		);
 	}
 }
+export default translate("common")(ChangeLanguageComponent);
 

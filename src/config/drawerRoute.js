@@ -6,13 +6,12 @@ import Fortnite3DModelRoute from './fortnite3DModelRoute';
 import ProTipsVideoScreen from '../screen/proTipsVideo';
 import DrawerComponent from './drawerComponent';
 import AppRoute from './mainRoute';
-import DetailFortniteTweet from '../screen/fortniteTweet/detail';
 import EmoteSoundScreen from '../screen/emoteSound/index';
 import ShareThisApp from '../screen/shareThisApp';
 import SubscribeUs from '../screen/subscribeUs';
 import HelpUsTranslate from '../screen/helpUsTranslate';
 import FAQs from '../screen/FAQs';
-
+import ChangeLanguageComponent from '../i18n/changeLanguage'
 
 
 
@@ -28,9 +27,6 @@ const DrawerRoute = createDrawerNavigator({
     },
     FortniteTweetScreen: {
         screen: FortniteTweetScreen
-    },
-    DetailFortniteTweet:{
-        screen: DetailFortniteTweet
     },
     ProTipsVideoScreen: {
         screen: ProTipsVideoScreen
@@ -49,6 +45,9 @@ const DrawerRoute = createDrawerNavigator({
     },
     FAQs:{
         screen: FAQs
+    },
+    ChangeLanguageComponent:{
+        screen: ChangeLanguageComponent
     }
 },
     {

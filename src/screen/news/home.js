@@ -5,7 +5,6 @@ import { DIMENSION, APPEARANCES, COLORS, FONTFAMILY } from '../../module';
 import HeaderScreen from '../../component/header/index';
 import { translate } from "react-i18next";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import ChangeLanguageComponent from '../../i18n/changeLanguage'
 import { DrawerActions } from 'react-navigation-drawer';
 import Loading from '../../component/loading/loading';
 import { observer, inject } from 'mobx-react';
@@ -15,8 +14,10 @@ import { observer, inject } from 'mobx-react';
 class HomeScreen extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      refreshing: false
+      refreshing: false,
+      title:this.props.t('News')
     }
   }
   componentDidMount() {
@@ -40,9 +41,7 @@ class HomeScreen extends Component {
           : <View></View>
 
         }
-        {/* <ChangeLanguageComponent
-         nav = {this.props.navigation}
-        /> */}
+       
         <FlatList
           onRefresh={() => { refreshing }}
           refreshing={this.state.refreshing}

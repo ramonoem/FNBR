@@ -23,6 +23,8 @@ const AppStack = createStackNavigator({
       }
     },
   }, { headerMode: 'none' } );
-  const AppStacking = createAppContainer(AppStack);
-
+  // class ChangeLanguageComponent extends Component
+  const AppStacking  = createAppContainer(AppStack);
+  console.log("porps", this.props)
+  // const { nav } = this.props.nav
 export default AppStacking ;
