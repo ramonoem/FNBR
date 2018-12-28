@@ -1,11 +1,12 @@
 import { createStackNavigator } from 'react-navigation';
 import Fortnite3DModelScreen from '../screen/fortnite3DModel';
-import DetailFortnite3DModelScreen from '../screen/fortnite3DModel/detail'
+import DetailFortnite3DModelScreen from '../screen/fortnite3DModel/detail';
+
+
 
 const color = "#373737";
 const activeColor = "#F15C53";
 const Fortnite3DModelRoute = createStackNavigator({
-
     Fortnite3DModelScreen: {
         screen: Fortnite3DModelScreen,
     },

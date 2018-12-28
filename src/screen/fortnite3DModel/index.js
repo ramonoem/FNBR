@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { Image, StyleSheet, StatusBar, Platform, Linking, TouchableOpacity, SafeAreaView, Text, FlatList, View } from 'react-native';
+import { Image, StyleSheet, StatusBar, Platform, ActivityIndicator, TouchableOpacity, SafeAreaView, Text, FlatList, View } from 'react-native';
 import { DIMENSION, APPEARANCES, COLORS, FONTFAMILY } from '../../module';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -17,20 +17,38 @@ class Fortnite3DModelScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            refreshing: false
+            refreshing: false,
+            data: null
         }
     }
     componentWillMount() {
 
     }
+    getData() {
+        setTimeout(() => {
+            console.log('Our data is fetched');
+            this.setState({
+                data: this.props.fortnite3DModels.listFortnite3DModels
+            })
+        }, 1000)
+    }
     componentDidMount() {
         this.props.fortnite3DModels.fetchDataFortnite3DModels()
+        this.getData();
     };
     componentDidUpdate = (prevProps, prevState) => {
         console.log("prevProps", prevProps)
     }
 
-
+    ActivityIndicatorLoadingView() {
+        return (
+            <ActivityIndicator
+                color='#582D79'
+                size='large'
+                style={styles.ActivityIndicatorStyle}
+            />
+        );
+    }
     _onDetail = (item) => {
         this.props.navigation.navigate({
             routeName: "DetailFortnite3DModelScreen",
@@ -69,252 +87,254 @@ class Fortnite3DModelScreen extends Component {
                         </View>
                     </SafeAreaView>
                 </View>
-                {loading ?
-                    <Loading />
-                    : <View></View>
-                }
-                <FlatList
-                    onRefresh={() => { refreshing }}
-                    refreshing={this.state.refreshing}
-                    numColumns={3}
-                    // onEndReachedThreshold={0.5}
-                    // onEndReached={() =>this.fetchDataAdvertisements()}
-                    showsVerticalScrollIndicator={false}
-                    data={listFortnite3DModels}
-                    keyExtractor={(item, index) => index.toString()}
-                    style={[APPEARANCES.SHADOW, {
-                        flex: 1,
-                        paddingLeft: 7,
-                    }]}
-                    renderItem={({ item, index }) => {
-                        if (item.rarityType === "legendary") {
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => this._onDetail(item)}
-                                    style={[{
-                                        width: DIMENSION(31),
-                                        height: DIMENSION(61),
-                                        padding: 2,
-                                        marginRight: DIMENSION(2),
-                                        marginBottom: DIMENSION(1),
-                                        marginTop: DIMENSION(3),
-                                    }]}>
-                                    <View style={[, , {
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(40),
-                                        backgroundColor: '#A5532C',
-                                    }]}>
-                                        <Image
-                                            resizeMode={'stretch'}
-                                            source={{ uri: item.imageThumbnail }}
-                                            style={{ height: 25, width: null, flex: 1 }}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(20),
-                                        padding: 2,
-                                        paddingTop: 5,
-                                        marginBottom: DIMENSION(5),
-                                        backgroundColor: '#C97449',
-                                        alignItems: "center",
-                                    }}>
-                                        <Text
-                                            textTransform={"uppercase"}
-                                            style={{
-                                                fontSize: FONTFAMILY.titleText,
-                                                fontWeight: '900',
-                                                textAlign: 'center',
-                                                color: COLORS.TEXT,
-
-                                            }}>
-                                            {item.title}
-                                        </Text>
-                                        <Text style={{
-                                            fontSize: FONTFAMILY.titleText,
-                                            color: COLORS.TEXT,
-                                            paddingTop: 2,
+               
+                {this.state.data ?
+                    <FlatList
+                        onRefresh={() => { refreshing }}
+                        refreshing={this.state.refreshing}
+                        numColumns={3}
+                        // onEndReachedThreshold={0.5}
+                        // onEndReached={() =>this.fetchDataAdvertisements()}
+                        showsVerticalScrollIndicator={false}
+                        data={this.state.data}
+                        keyExtractor={(item, index) => index.toString()}
+                        style={[APPEARANCES.SHADOW, {
+                            flex: 1,
+                            paddingLeft: 7,
+                        }]}
+                        renderItem={({ item, index }) => {
+                            if (item.rarityType === "legendary") {
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => this._onDetail(item)}
+                                        style={[{
+                                            width: DIMENSION(31),
+                                            height: DIMENSION(61),
+                                            padding: 2,
+                                            marginRight: DIMENSION(2),
+                                            marginBottom: DIMENSION(1),
+                                            marginTop: DIMENSION(3),
+                                        }]}>
+                                        <View style={[, , {
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(40),
+                                            backgroundColor: '#A5532C',
+                                        }]}>
+                                            <Image
+                                                resizeMode={'stretch'}
+                                                source={{ uri: item.imageThumbnail }}
+                                                style={{ height: 25, width: null, flex: 1 }}
+                                            />
+                                        </View>
+                                        <View style={{
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(20),
+                                            padding: 2,
+                                            paddingTop: 5,
+                                            marginBottom: DIMENSION(5),
+                                            backgroundColor: '#C97449',
+                                            alignItems: "center",
                                         }}>
-                                            {item.vBuck}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                            <Text
+                                                textTransform={"uppercase"}
+                                                style={{
+                                                    fontSize: FONTFAMILY.titleText,
+                                                    fontWeight: '900',
+                                                    textAlign: 'center',
+                                                    color: COLORS.TEXT,
 
-                            )
-                        }
-                        if (item.rarityType === "rare") {
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => this._onDetail(item)}
-                                    style={[, , {
-                                        width: DIMENSION(31),
-                                        height: DIMENSION(61),
-                                        padding: 2,
-                                        marginRight: DIMENSION(2),
-                                        marginBottom: DIMENSION(1),
-                                        marginTop: DIMENSION(3),
-                                    }]}>
-                                    <View style={[, , {
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(40),
-                                        backgroundColor: '#2763A6',
-                                    }]}>
-                                        <Image
-                                            resizeMode={'stretch'}
-                                            source={{ uri: item.imageThumbnail }}
-                                            style={{ height: 25, width: null, flex: 1 }}
-                                        />
-                                        {/* <View style={{  width: DIMENSION(30), height: DIMENSION(5), backgroundColor: '#2763A6', }}>
+                                                }}>
+                                                {item.title}
+                                            </Text>
+                                            <Text style={{
+                                                fontSize: FONTFAMILY.titleText,
+                                                color: COLORS.TEXT,
+                                                paddingTop: 2,
+                                            }}>
+                                                {item.vBuck}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                )
+                            }
+                            if (item.rarityType === "rare") {
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => this._onDetail(item)}
+                                        style={[, , {
+                                            width: DIMENSION(31),
+                                            height: DIMENSION(61),
+                                            padding: 2,
+                                            marginRight: DIMENSION(2),
+                                            marginBottom: DIMENSION(1),
+                                            marginTop: DIMENSION(3),
+                                        }]}>
+                                        <View style={[, , {
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(40),
+                                            backgroundColor: '#2763A6',
+                                        }]}>
+                                            <Image
+                                                resizeMode={'stretch'}
+                                                source={{ uri: item.imageThumbnail }}
+                                                style={{ height: 25, width: null, flex: 1 }}
+                                            />
+                                            {/* <View style={{  width: DIMENSION(30), height: DIMENSION(5), backgroundColor: '#2763A6', }}>
 
                                         </View> */}
-                                    </View>
-                                    <View style={{
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(20),
-                                        padding: 2,
-                                        paddingTop: 5,
-                                        marginBottom: DIMENSION(5),
-                                        backgroundColor: '#3B96E2',
-                                        alignItems: "center"
-                                    }}>
-                                        <Text
-                                            textTransform={'uppercase'}
-                                            style={{
-
-                                                fontSize: FONTFAMILY.titleText,
-                                                fontWeight: '900',
-                                                textAlign: 'center',
-                                                color: COLORS.TEXT,
-                                            }}>
-                                            {item.title}
-                                        </Text>
-                                        <Text style={{
-                                            fontSize: FONTFAMILY.subTitleText,
-                                            color: COLORS.TEXT,
+                                        </View>
+                                        <View style={{
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(20),
+                                            padding: 2,
                                             paddingTop: 5,
+                                            marginBottom: DIMENSION(5),
+                                            backgroundColor: '#3B96E2',
+                                            alignItems: "center"
                                         }}>
-                                            {item.vBuck}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                            <Text
+                                                textTransform={'uppercase'}
+                                                style={{
 
-                            )
-                        }
-                        if (item.rarityType === "epic") {
-                            // this.setState({rare: '#582D79'})
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => this._onDetail(item)}
-                                    style={[, , {
-                                        width: DIMENSION(31),
-                                        height: DIMENSION(61),
-                                        padding: 2,
-                                        marginRight: DIMENSION(2),
-                                        marginBottom: DIMENSION(1),
-                                        marginTop: DIMENSION(3),
-                                    }]}>
-                                    <View style={[, , {
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(40),
-                                        backgroundColor: '#582D79',
-                                    }]}>
-                                        <Image
-                                            resizeMode={'stretch'}
-                                            source={{ uri: item.imageThumbnail }}
-                                            style={{ height: 25, width: null, flex: 1 }}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(20),
-                                        padding: 2,
-                                        paddingTop: 5,
-                                        marginBottom: DIMENSION(5),
-                                        backgroundColor: '#8D44C3',
-                                        alignItems: "center"
-                                    }}>
-                                        <Text
-                                            textTransform={'uppercase'}
-                                            style={{
-                                                fontSize: FONTFAMILY.titleText,
-                                                fontWeight: '900',
-                                                // width: DIMENSION(25),
-                                                textAlign: 'center',
+                                                    fontSize: FONTFAMILY.titleText,
+                                                    fontWeight: '900',
+                                                    textAlign: 'center',
+                                                    color: COLORS.TEXT,
+                                                }}>
+                                                {item.title}
+                                            </Text>
+                                            <Text style={{
+                                                fontSize: FONTFAMILY.subTitleText,
                                                 color: COLORS.TEXT,
+                                                paddingTop: 5,
                                             }}>
-                                            {item.title}
-                                        </Text>
-                                        <Text style={{
-                                            fontSize: FONTFAMILY.subTitleText,
-                                            color: COLORS.TEXT,
-                                            paddingTop: 5,
-                                        }}>
-                                            {item.vBuck}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                                {item.vBuck}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
 
-                            )
-                        }
-                        if (item.rarityType === "uncommon") {
-                            // this.setState({rare: '#336F23'})
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => this._onDetail(item)}
-                                    style={[, , {
-                                        width: DIMENSION(31),
-                                        height: DIMENSION(61),
-                                        padding: 2,
-                                        marginRight: DIMENSION(2),
-                                        marginBottom: DIMENSION(1),
-                                        marginTop: DIMENSION(3),
-                                    }]}>
-                                    <View style={[, , {
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(40),
-                                        backgroundColor: '#336F23',
-                                    }]}>
-                                        <Image
-                                            resizeMode={'stretch'}
-                                            source={{ uri: item.imageThumbnail }}
-                                            style={{ height: 50, width: null, flex: 1 }}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        width: DIMENSION(30),
-                                        height: DIMENSION(20),
-                                        padding: 2,
-                                        paddingTop: 5,
-                                        marginBottom: DIMENSION(5),
-                                        backgroundColor: '#4D942F',
-                                        alignItems: "center"
-                                    }}>
-                                        <Text
-                                            textTransform={'uppercase'}
-                                            style={{
-                                                fontSize: FONTFAMILY.titleText,
-                                                fontWeight: '900',
-                                                textAlign: 'center',
+                                )
+                            }
+                            if (item.rarityType === "epic") {
+                                // this.setState({rare: '#582D79'})
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => this._onDetail(item)}
+                                        style={[, , {
+                                            width: DIMENSION(31),
+                                            height: DIMENSION(61),
+                                            padding: 2,
+                                            marginRight: DIMENSION(2),
+                                            marginBottom: DIMENSION(1),
+                                            marginTop: DIMENSION(3),
+                                        }]}>
+                                        <View style={[, , {
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(40),
+                                            backgroundColor: '#582D79',
+                                        }]}>
+                                            <Image
+                                                resizeMode={'stretch'}
+                                                source={{ uri: item.imageThumbnail }}
+                                                style={{ height: 25, width: null, flex: 1 }}
+                                            />
+                                        </View>
+                                        <View style={{
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(20),
+                                            padding: 2,
+                                            paddingTop: 5,
+                                            marginBottom: DIMENSION(5),
+                                            backgroundColor: '#8D44C3',
+                                            alignItems: "center"
+                                        }}>
+                                            <Text
+                                                textTransform={'uppercase'}
+                                                style={{
+                                                    fontSize: FONTFAMILY.titleText,
+                                                    fontWeight: '900',
+                                                    // width: DIMENSION(25),
+                                                    textAlign: 'center',
+                                                    color: COLORS.TEXT,
+                                                }}>
+                                                {item.title}
+                                            </Text>
+                                            <Text style={{
+                                                fontSize: FONTFAMILY.subTitleText,
                                                 color: COLORS.TEXT,
-                                                textTransform: 'uppercase'
+                                                paddingTop: 5,
                                             }}>
-                                            {item.title}
-                                        </Text>
-                                        <Text style={{
-                                            fontSize: FONTFAMILY.subTitleText,
-                                            color: COLORS.TEXT,
+                                                {item.vBuck}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                )
+                            }
+                            if (item.rarityType === "uncommon") {
+                                // this.setState({rare: '#336F23'})
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => this._onDetail(item)}
+                                        style={[, , {
+                                            width: DIMENSION(31),
+                                            height: DIMENSION(61),
+                                            padding: 2,
+                                            marginRight: DIMENSION(2),
+                                            marginBottom: DIMENSION(1),
+                                            marginTop: DIMENSION(3),
+                                        }]}>
+                                        <View style={[, , {
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(40),
+                                            backgroundColor: '#336F23',
+                                        }]}>
+                                            <Image
+                                                resizeMode={'stretch'}
+                                                source={{ uri: item.imageThumbnail }}
+                                                style={{ height: 50, width: null, flex: 1 }}
+                                            />
+                                        </View>
+                                        <View style={{
+                                            width: DIMENSION(30),
+                                            height: DIMENSION(20),
+                                            padding: 2,
                                             paddingTop: 5,
+                                            marginBottom: DIMENSION(5),
+                                            backgroundColor: '#4D942F',
+                                            alignItems: "center"
                                         }}>
-                                            {item.vBuck}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                            <Text
+                                                textTransform={'uppercase'}
+                                                style={{
+                                                    fontSize: FONTFAMILY.titleText,
+                                                    fontWeight: '900',
+                                                    textAlign: 'center',
+                                                    color: COLORS.TEXT,
+                                                    textTransform: 'uppercase'
+                                                }}>
+                                                {item.title}
+                                            </Text>
+                                            <Text style={{
+                                                fontSize: FONTFAMILY.subTitleText,
+                                                color: COLORS.TEXT,
+                                                paddingTop: 5,
+                                            }}>
+                                                {item.vBuck}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
 
-                            )
-                        }
+                                )
+                            }
 
-                    }}
-                />
+                        }}
+                    />
+                    :
+                        <Loading />
+                     
+                }
             </View>
         );
     }
@@ -324,8 +344,6 @@ class Fortnite3DModelScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#FFF',
     },
     headerTittle: {
@@ -353,8 +371,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
     },
     headerContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
+       
 
     },
     header: {

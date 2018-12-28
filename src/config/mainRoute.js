@@ -146,6 +146,6 @@ const RootStack = createBottomTabNavigator({
     });
 
 const AppRoute = createAppContainer(RootStack);
-    
+
 export default AppRoute ;
 // translate("common")(

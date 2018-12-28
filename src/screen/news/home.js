@@ -45,7 +45,6 @@ class HomeScreen extends Component {
         {loading ?
           <Loading />
           : <View></View>
-
         }
        
         <FlatList
