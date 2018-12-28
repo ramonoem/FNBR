@@ -7,17 +7,23 @@ import { translate } from "react-i18next";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { DrawerActions } from 'react-navigation-drawer';
 import Loading from '../../component/loading/loading';
+import i18n from "i18next";
 import { observer, inject } from 'mobx-react';
 
 @inject('news')
 @observer
+
 class HomeScreen extends Component {
+  // static navigationOptions = () => ({
+  //   title: i18n.t("FNBR NEWS"),
+  //   tabBarLabel: i18n.t("FNBR NEWS"),               // it stay in french whatever choosen langage
+  //   });
+  
   constructor(props) {
     super(props)
 
     this.state = {
       refreshing: false,
-      title:this.props.t('News')
     }
   }
   componentDidMount() {

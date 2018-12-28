@@ -6,6 +6,7 @@ import {
 	Image
 } from "react-native";
 import i18n from "./index";
+import { StackActions, NavigationActions } from 'react-navigation';
 import { translate } from "react-i18next";
 import { DIMENSION, } from '../module';
 import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
@@ -23,8 +24,14 @@ class ChangeLanguageComponent extends Component {
 
 
 	onSelectedLang(val) {
+		const resetAction = StackActions.reset({
+			// index: 0,
+			actions: [NavigationActions.navigate({ routeName: 'AppRoute' })],
+		});
+		this.props.navigation.dispatch(resetAction);
 		AsyncStorage.setItem("@lang:code", val);
 		i18n.changeLanguage(val);
+		
 	}
 	_onClickGerman = () => {
 		const { nav } = this.props
@@ -78,7 +85,6 @@ class ChangeLanguageComponent extends Component {
 							}}>German</Text>
 						</Left>
 						<Right style={{}}>
-
 							<Image
 								source={require("../assets/images/german.png")}
 								style={{ width: 30, height: 21 }}

@@ -4,7 +4,7 @@ import {
     createAppContainer,
     createBottomTabNavigator
 } from 'react-navigation';
-// import { translate } from "react-i18next";
+import i18n from "i18next";
 import HomeScreen from '../screen/news/home';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
@@ -17,29 +17,29 @@ import ChanllengeScreen from '../screen/challenge/';
 
 const color = "#373737";
 const activeColor = "#582D79";
-const title = 'News'
 const RootStack = createBottomTabNavigator({
     Home: {
         screen: HomeScreen,
-        navigationOptions: {
-            title: 'News',
-            tabBarIcon: ({ focused }) =>
-                focused ? (
+        navigationOptions: ({}) => {
+            const title = i18n.t('News');
+            const tabBarIcon = ({ focused }) =>
+            focused ? (
+                <FontAwesome5
+                    name="globe-americas"
+                    size={24}
+                    iconStyle={{ paddingBottom: 0, paddingTop: 0 }}
+                    color={activeColor}
+                />
+            ) : (
                     <FontAwesome5
                         name="globe-americas"
                         size={24}
                         iconStyle={{ paddingBottom: 0, paddingTop: 0 }}
-                        color={activeColor}
+                        color={color}
                     />
-                ) : (
-                        <FontAwesome5
-                            name="globe-americas"
-                            size={24}
-                            iconStyle={{ paddingBottom: 0, paddingTop: 0 }}
-                            color={color}
-                        />
-                    )
-        }
+                )
+            return {title, tabBarIcon};
+          },
     },
     UpComingScreen:{
         screen: UpComingScreen,
@@ -115,7 +115,7 @@ const RootStack = createBottomTabNavigator({
 
 },
     {
-        initialRouteName: "Home",
+        // initialRouteName: "Home",
         // contentComponent: DrawerComponent,
         removeClippedSubviews: true,
         tabBarPosition: "bottom",
@@ -146,7 +146,6 @@ const RootStack = createBottomTabNavigator({
     });
 
 const AppRoute = createAppContainer(RootStack);
-    console.log("porps", this.props)
-    const props = this.props
+    
 export default AppRoute ;
 // translate("common")(

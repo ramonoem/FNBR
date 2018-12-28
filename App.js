@@ -9,7 +9,7 @@
 
 
 import React, { Component } from 'react';
-import {  StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { Provider } from 'mobx-react';
 import store from './src/store';
 import { YellowBox } from 'react-native';
@@ -18,12 +18,12 @@ import i18n from "./src/i18n";
 import { I18nextProvider } from "react-i18next";
 
 AsyncStorage.getItem("@lang:code").then(value => {
-	if (value) {
-		i18n.changeLanguage(value);
-	}
-	else if (AsyncStorage.getItem("@lang:code") === null) {
-		// this.props.navigation.navigate("ChangeLanguageScreen")
-	}
+  if (value) {
+    i18n.changeLanguage(value);
+  }
+  else if (AsyncStorage.getItem("@lang:code") === null) {
+    // this.props.navigation.navigate("ChangeLanguageScreen")
+  }
 });
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -33,8 +33,8 @@ export default class App extends Component {
     return (
       <Provider {...store}>
         <I18nextProvider i18n={i18n}>
-          <AppStacking  
-         nav={this.props.nav}
+          <AppStacking
+            nav={this.props.nav}
           />
         </I18nextProvider>
       </Provider>
