@@ -7,13 +7,15 @@ import { translate } from "react-i18next";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { DrawerActions } from 'react-navigation-drawer';
 import Loading from '../../component/loading/loading';
-import i18n from "i18next";
+import PropTypes from 'prop-types';
+import { AdMobBanner} from 'react-native-admob'
 import { observer, inject } from 'mobx-react';
 
 @inject('news')
 @observer
 
 class HomeScreen extends Component {
+  
   // static navigationOptions = () => ({
   //   title: i18n.t("FNBR NEWS"),
   //   tabBarLabel: i18n.t("FNBR NEWS"),               // it stay in french whatever choosen langage
@@ -46,6 +48,7 @@ class HomeScreen extends Component {
           <Loading />
           : <View></View>
         }
+       
         <FlatList
           onRefresh={() => { refreshing }}
           refreshing={this.state.refreshing}
@@ -104,17 +107,32 @@ class HomeScreen extends Component {
             )
           }}
         />
+        <View style={{width: DIMENSION(100)}}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/2934735716"
+          testDeviceID="EMULATOR"
+          didFailToReceiveAdWithError={console.log("this.bannerError" ,this.bannerError)} />
+        </View>
+         
       </View>
     );
   }
 }
 
 // define your styles
+
 const styles = StyleSheet.create({
+  ads: {
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#a7a7ab',
+    borderTopWidth: 1,
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    
     backgroundColor: '#FFF',
   },
 });
