@@ -36,27 +36,29 @@ class ChangeLanguageComponent extends Component {
     //         console.log("err", error)
     //       }
     // }
-
+	resetAction(){
+		return resetAction = NavigationActions.reset({
+			index: 1,
+			actions: [
+				NavigationActions.navigate({routeName: 'DrawerRouting'})
+			]
+		});
+	}
+	
 	onSelectedLang(val) {
 		this.props.navigation.goBack()
-		console.log("this.props", this.props)
 		AsyncStorage.setItem("@lang:code", val);
 		i18n.changeLanguage(val);
-		
 	}
 	_onClickGerman = () => {
 		const { nav } = this.props
 		this.onSelectedLang("german")
-		// nav.navigate("Home")
 	}
 	_onClickEnglish = () => {
-		// const { nav } = this.props
 		this.onSelectedLang("en")
-		// nav.navigate("Home")
 	}
 	render() {
 		const { nav } = this.props
-		console.log('props:', this.props)
 		return (
 			<Container>
 				<GoBackHeader
@@ -65,7 +67,15 @@ class ChangeLanguageComponent extends Component {
 				/>
 				<Content>
 					<Button
-						onPress={() => this.onSelectedLang("czech")}
+						onPress={() => 
+							// this.props.rootNavigation.dispatch(
+							// 	NavigationActions.reset({
+							// 	  index: 0,
+							// 	  actions: [NavigationActions.navigate({ routeName: 'Login' })]
+							// 	})
+							//   )
+							this.onSelectedLang("czech")
+					}
 						full style={{
 							backgroundColor: '#FFF',
 							padding: DIMENSION(15),

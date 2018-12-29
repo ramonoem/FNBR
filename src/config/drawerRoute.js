@@ -20,7 +20,7 @@ const color = "#373737";
 const activeColor = "#F15C53";
 const DrawerRoute = createDrawerNavigator({
     AppRoute: {
-        screen: AppRoute
+        screen: AppRoute,
     },
     Fortnite3DModelRoute: {
         screen: Fortnite3DModelRoute,
@@ -52,6 +52,7 @@ const DrawerRoute = createDrawerNavigator({
 },
     {
         contentComponent: DrawerComponent,
+        // headerMode: 'float',
         drawerWidth: DEVICE_WIDTH - 100,
         removeClippedSubviews: true,
         animationEnabled: true,

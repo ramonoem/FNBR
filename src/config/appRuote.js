@@ -5,7 +5,7 @@ import {
     createBottomTabNavigator
 } from 'react-navigation';
 import DrawerRouting from './drawerRoute'
-import AppRoute from './mainRoute'
+import RootStack from './mainRoute'
 import ChangeLanguageComponent from '../i18n/changeLanguage'
 
 const resetAction = StackActions.reset({
@@ -13,6 +13,7 @@ const resetAction = StackActions.reset({
   actions: [NavigationActions.navigate({ routeName: 'AppStack' })],
 });
 const AppStack = createStackNavigator({
+ 
   DrawerRouting: {
     screen: DrawerRouting,
     navigationOptions: {
@@ -20,13 +21,13 @@ const AppStack = createStackNavigator({
       gesturesEnabled: false
     }
   },
-    AppRoute : {
-      screen: AppRoute,
-      navigationOptions: {
-        header: null,
-        gesturesEnabled: false
-      }
-    },
+  RootStack : {
+    screen: RootStack,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false
+    }
+  },
     ChangeLanguageComponent:{
       screen: ChangeLanguageComponent
     }

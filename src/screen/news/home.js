@@ -46,7 +46,6 @@ class HomeScreen extends Component {
           <Loading />
           : <View></View>
         }
-       
         <FlatList
           onRefresh={() => { refreshing }}
           refreshing={this.state.refreshing}

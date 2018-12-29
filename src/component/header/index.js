@@ -5,7 +5,6 @@ import { DIMENSION, COLORS, APPEARANCES , FONTFAMILY} from '../../module';
 import isIphoneX from '../../module/platform';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Entypo from "react-native-vector-icons/Entypo";
-import { DrawerActions } from 'react-navigation-drawer';
 
 class HeaderScreen extends Component {
     _onClick = () => {

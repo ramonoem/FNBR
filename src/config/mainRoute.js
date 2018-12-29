@@ -20,6 +20,7 @@ const activeColor = "#582D79";
 const RootStack = createBottomTabNavigator({
     Home: {
         screen: HomeScreen,
+        // const: { id : 1} = HomeScreen,
         navigationOptions: ({}) => {
             const title = i18n.t('News');
             const tabBarIcon = ({ focused }) =>
@@ -107,16 +108,8 @@ const RootStack = createBottomTabNavigator({
                     )
         }
     },
-    // DrawerRouting:{
-    //     screen: DrawerRouting
-    // }
-
-
-
 },
     {
-        // initialRouteName: "Home",
-        // contentComponent: DrawerComponent,
         removeClippedSubviews: true,
         tabBarPosition: "bottom",
         animationEnabled: true,
@@ -145,7 +138,7 @@ const RootStack = createBottomTabNavigator({
         },
     });
 
-const AppRoute = createAppContainer(RootStack);
+// const AppRoute = createAppContainer(RootStack);
 
-export default AppRoute ;
+export default RootStack ;
 // translate("common")(
